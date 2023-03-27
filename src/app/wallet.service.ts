@@ -29,7 +29,7 @@ export class WalletService {
         await this.m_windowRef.nativeWindow.ethereum.request({
           method: 'eth_requestAccounts',
         });
-      } catch (err) {
+      } catch (err : any) {
         if (err.code === 4001) {
           console.log('Please select an account');
         } else {
@@ -50,7 +50,7 @@ export class WalletService {
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: '0xAA36A7' }],
       });
-    } catch (switchError) {
+    } catch (switchError : any) {
       // This error code indicates that the chain has not been added to MetaMask.
       if (switchError.code === 4902) {
         try {

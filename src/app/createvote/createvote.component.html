@@ -1,1 +1,24 @@
 <p>createvote works!</p>
+<div class="container">
+
+    <h1>User Registration</h1>  
+    <input #box (keyup.enter)="Character(box.value)"/>
+
+    <p>{{box1name}}</p>
+    
+    
+    
+    
+    <input #box2 (keyup.enter)="onEnter(box2.value)"/>
+    
+    <p>{{box2name}}</p>
+
+
+    <button (click)="CreateVotation()">Crea</button>
+    <button (click)="getInfoVotation()">Info</button>
+
+
+
+</div>
+
+

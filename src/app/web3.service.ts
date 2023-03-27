@@ -7,12 +7,13 @@ import { provider } from 'web3-core';
   providedIn: 'root',
 })
 export class Web3Service {
+  private contractAddress = "0x7165D689f2994fc50b8E001926927Dd38899AF4A";
     private provider!: provider;
   private address!: string[];
   private web3WalletProvider: Web3;
   private m_wallet: WalletService;
   private readonly infuraHTTPProvider: string =
-    'https://sepolia.infura.io/v3/1caadfe504ce4531b041de4bc8927ceb';
+    'https://mainnet.infura.io/v3/1caadfe504ce4531b041de4bc8927ceb';
   private walletConnected: boolean = false;
 
   constructor() {
@@ -57,9 +58,100 @@ export class Web3Service {
   }
 
   async newVotation(){
-    
+    if (this.walletConnected) {
+    let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
+    console.log("nuova");
+    const contract = new this.web3WalletProvider.eth.Contract(abi.abi, this.contractAddress);
+
+    console.log(
+        await contract.methods
+          .newVotation(20,
+            "0x3034cD9FDE929139399743430dF5fe340E77308d",
+             "0xE549DD626C1D1D50d9De5A9c2A452544aB978E4b",
+              "Campione di Napoli?",
+               2,
+                ["Maradona","Messi","","","","","","","",""])
+          .send({from: this.address[0]})
+          .on('transactionHash', function (hash: any) {
+            console.log(hash);
+          })
+          .on('receipt', function (receipt: any) {
+            console.log(receipt);
+            console.log('Done!');
+          })
+          .on('error', console.error)
+    );
+        }else
+        console.log("wallet not connected");    
   }
 
   
+  async viewVotation(value : number){
+    
+    let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
+
+    const contract = new this.web3WalletProvider.eth.Contract(
+      abi.abi,
+      this.contractAddress
+    );
+    let title=(await contract.methods.getOneTitle(value).call());
+    let opzioni=(await contract.methods.getOneOptions(value).call());
+    let voti=(await contract.methods.getOneVoti(value).call());
+    return [title, opzioni,voti];
+
+
+  }
+
+  async addValidator(vote:number, value : string){
+    
+    if (this.walletConnected) {
+      let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
+      const contract = new this.web3WalletProvider.eth.Contract(abi.abi, this.contractAddress);
+  
+      console.log(
+          await contract.methods
+            .registerOneValidator(vote, value)
+            .send({from: this.address[0]})
+            .on('transactionHash', function (hash: any) {
+              console.log(hash);
+            })
+            .on('receipt', function (receipt: any) {
+              console.log(receipt);
+              console.log('Done!');
+            })
+            .on('error', console.error)
+      );
+          }else
+          console.log("wallet not connected");    
+  
+
+  }
+
+  async addWhitelist(vote:number, value : string){
+    
+    if (this.walletConnected) {
+      let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
+      const contract = new this.web3WalletProvider.eth.Contract(abi.abi, this.contractAddress);
+  
+      console.log(
+          await contract.methods
+            .registerOneWhitelist(vote, value)
+            .send({from: this.address[0]})
+            .on('transactionHash', function (hash: any) {
+              console.log(hash);
+            })
+            .on('receipt', function (receipt: any) {
+              console.log(receipt);
+              console.log('Done!');
+            })
+            .on('error', console.error)
+      );
+          }else
+          console.log("wallet not connected");    
+
+
+  }
+
+
 }
 

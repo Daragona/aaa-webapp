@@ -8,11 +8,13 @@ import { VoteComponent } from './vote/vote.component';
 import { CreatevoteComponent } from './createvote/createvote.component';
 import { ViewvoteComponent } from './viewvote/viewvote.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { RegisterComponent } from './register/register.component';
 
 const appRoutes: Routes = [
   { path: 'vote', component: VoteComponent },
   { path: 'create-vote', component: CreatevoteComponent },
   { path: 'view-vote', component: ViewvoteComponent },
+  { path: 'register', component: RegisterComponent },
   //{ path: '',   redirectTo: '/heroes', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 
@@ -24,7 +26,8 @@ const appRoutes: Routes = [
     VoteComponent,
     CreatevoteComponent,
     ViewvoteComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

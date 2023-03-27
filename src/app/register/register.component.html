@@ -1,0 +1,14 @@
+<p>register works!</p>
+
+<div id="setNumber">
+    Votazione
+    <input type="number" #vote/>
+    Indirizzo
+    <input type="text" #box/>
+    <button (click)="addValidator(vote.value, box.value)">Aggiungi come validator!</button>
+    <button (click)="addWhitelist(vote.value, box.value)">Aggiungi alla whitelist!</button>
+
+
+    <p>{{result}}</p>
+
+</div>
