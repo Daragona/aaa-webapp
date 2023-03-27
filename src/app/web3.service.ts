@@ -13,7 +13,7 @@ export class Web3Service {
   private web3WalletProvider: Web3;
   private m_wallet: WalletService;
   private readonly infuraHTTPProvider: string =
-    'https://mainnet.infura.io/v3/1caadfe504ce4531b041de4bc8927ceb';
+    'https://sepolia.infura.io/v3/1caadfe504ce4531b041de4bc8927ceb';
   private walletConnected: boolean = false;
 
   constructor() {
@@ -103,7 +103,7 @@ export class Web3Service {
     if (this.walletConnected) {
       let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
       const contract = new this.web3WalletProvider.eth.Contract(abi.abi, this.contractAddress);
-      
+
       await contract.methods.registerOneValidator(vote, value)
         .send({from: this.address[0]})
         .on('transactionHash', function (hash: any) {
