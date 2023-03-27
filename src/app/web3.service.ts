@@ -59,37 +59,33 @@ export class Web3Service {
 
   async newVotation(){
     if (this.walletConnected) {
-    let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
-    console.log("nuova");
-    const contract = new this.web3WalletProvider.eth.Contract(abi.abi, this.contractAddress);
+      let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
+      console.log("nuova");
+      const contract = new this.web3WalletProvider.eth.Contract(abi.abi, this.contractAddress);
+      
+      await contract.methods.newVotation(
+        20,
+        "0x3034cD9FDE929139399743430dF5fe340E77308d",
+        "0xE549DD626C1D1D50d9De5A9c2A452544aB978E4b",
+        "Campione di Napoli?",
+        2,
+        ["Maradona","Messi","","","","","","","",""])
+      .send({from: this.address[0]})
+      .on('transactionHash', function (hash: any) {
+        console.log(hash);
+      })
+      .on('receipt', function (receipt: any) {
+        console.log(receipt+"Done!");
+      })
+      .on('error', console.error)
 
-    console.log(
-        await contract.methods
-          .newVotation(20,
-            "0x3034cD9FDE929139399743430dF5fe340E77308d",
-             "0xE549DD626C1D1D50d9De5A9c2A452544aB978E4b",
-              "Campione di Napoli?",
-               2,
-                ["Maradona","Messi","","","","","","","",""])
-          .send({from: this.address[0]})
-          .on('transactionHash', function (hash: any) {
-            console.log(hash);
-          })
-          .on('receipt', function (receipt: any) {
-            console.log(receipt);
-            console.log('Done!');
-          })
-          .on('error', console.error)
-    );
-        }else
-        console.log("wallet not connected");    
+    }else console.log("wallet not connected");    
   }
 
   
   async viewVotation(value : number){
     
     let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
-
     const contract = new this.web3WalletProvider.eth.Contract(
       abi.abi,
       this.contractAddress
@@ -103,27 +99,21 @@ export class Web3Service {
   }
 
   async addValidator(vote:number, value : string){
-    
+  
     if (this.walletConnected) {
       let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
       const contract = new this.web3WalletProvider.eth.Contract(abi.abi, this.contractAddress);
-  
-      console.log(
-          await contract.methods
-            .registerOneValidator(vote, value)
-            .send({from: this.address[0]})
-            .on('transactionHash', function (hash: any) {
-              console.log(hash);
-            })
-            .on('receipt', function (receipt: any) {
-              console.log(receipt);
-              console.log('Done!');
-            })
-            .on('error', console.error)
-      );
-          }else
-          console.log("wallet not connected");    
-  
+      
+      await contract.methods.registerOneValidator(vote, value)
+        .send({from: this.address[0]})
+        .on('transactionHash', function (hash: any) {
+          console.log(hash);
+        }).on('receipt', function (receipt: any) {
+          console.log(receipt+"Done!");
+        }).on('error', console.error)
+
+    }else
+      console.log("wallet not connected");    
 
   }
 
@@ -132,24 +122,42 @@ export class Web3Service {
     if (this.walletConnected) {
       let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
       const contract = new this.web3WalletProvider.eth.Contract(abi.abi, this.contractAddress);
-  
-      console.log(
-          await contract.methods
-            .registerOneWhitelist(vote, value)
-            .send({from: this.address[0]})
-            .on('transactionHash', function (hash: any) {
-              console.log(hash);
-            })
-            .on('receipt', function (receipt: any) {
-              console.log(receipt);
-              console.log('Done!');
-            })
-            .on('error', console.error)
-      );
-          }else
-          console.log("wallet not connected");    
 
+      await contract.methods.registerOneWhitelist(vote, value)
+        .send({from: this.address[0]})
+        .on('transactionHash', function (hash: any) {
+          console.log(hash);
+        }).on('receipt', function (receipt: any) {
+          console.log(receipt+"Done!");
+        }).on('error', console.error)
 
+    }else console.log("wallet not connected");    
+  }
+
+  async getNumVotazioni(){
+    let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
+    const contract = new this.web3WalletProvider.eth.Contract(
+      abi.abi,
+      this.contractAddress
+    );
+    return (await contract.methods.getNumVotazioni().call());
+
+  }
+
+  async registerCommitment(vote:number, hash: number, commit: number) {
+    if (this.walletConnected) {
+      let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
+      const contract = new this.web3WalletProvider.eth.Contract(abi.abi, this.contractAddress);
+
+      await contract.methods.registerOneCommitment(vote,hash,commit,this.address[0])
+        .send({from: this.address[0]})
+        .on('transactionHash', function (hash: any) {
+          console.log(hash);
+        }).on('receipt', function (receipt: any) {
+          console.log(receipt+"Done!");
+        }).on('error', console.error)
+
+    }else console.log("wallet not connected");    
   }
 
 

@@ -14,15 +14,9 @@ export class ViewvoteComponent {
 
   async viewVotations(){
     this.Votazione="";
-    let oldVotazione="1";
-    let tmpVotazione="";
-    let i=0;
-    while( tmpVotazione!=oldVotazione){
-      this.Votazione+=" Votazione "+(i-1)+": " + tmpVotazione;
-      oldVotazione=tmpVotazione;
-      tmpVotazione+= await this.web3.viewVotation(i);
-      
-      i++;
+    let num=await this.web3.getNumVotazioni();
+    for(let i=0;i<num;i++){
+      this.Votazione+=" Votazione "+(i)+await this.web3.viewVotation(i);
     }
 
     
