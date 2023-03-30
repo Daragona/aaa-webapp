@@ -7,7 +7,7 @@ import { provider } from 'web3-core';
   providedIn: 'root',
 })
 export class Web3Service {
-  private contractAddress = "0x7165D689f2994fc50b8E001926927Dd38899AF4A";
+  private contractAddress = "0x881037F2cC0A8eADCc3f3C991573b988F052fd91";
     private provider!: provider;
   private address!: string[];
   private web3WalletProvider: Web3;
@@ -94,8 +94,6 @@ export class Web3Service {
     let opzioni=(await contract.methods.getOneOptions(value).call());
     let voti=(await contract.methods.getOneVoti(value).call());
     return [title, opzioni,voti];
-
-
   }
 
   async addValidator(vote:number, value : string){
@@ -103,7 +101,7 @@ export class Web3Service {
     if (this.walletConnected) {
       let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
       const contract = new this.web3WalletProvider.eth.Contract(abi.abi, this.contractAddress);
-
+      console.log("1");
       await contract.methods.registerOneValidator(vote, value)
         .send({from: this.address[0]})
         .on('transactionHash', function (hash: any) {
@@ -111,6 +109,7 @@ export class Web3Service {
         }).on('receipt', function (receipt: any) {
           console.log(receipt+"Done!");
         }).on('error', console.error)
+        console.log("2");
 
     }else
       console.log("wallet not connected");    
@@ -140,8 +139,9 @@ export class Web3Service {
       abi.abi,
       this.contractAddress
     );
-    return (await contract.methods.getNumVotazioni().call());
-
+    let num=(await contract.methods.getNumVotazioni().call());
+    console.log(num);
+    //return num;
   }
 
   async registerCommitment(vote:number, hash: number, commit: number) {
