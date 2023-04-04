@@ -9,6 +9,7 @@ import { CreatevoteComponent } from './createvote/createvote.component';
 import { ViewvoteComponent } from './viewvote/viewvote.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegisterComponent } from './register/register.component';
+import { CardComponent } from './card/card.component';
 
 const appRoutes: Routes = [
   { path: 'vote', component: VoteComponent },
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
     CreatevoteComponent,
     ViewvoteComponent,
     PageNotFoundComponent,
-    RegisterComponent
+    RegisterComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
