@@ -8,32 +8,52 @@ import { Web3Service } from '../web3.service';
 })
 export class ViewvoteComponent {
   public  Votazione : string | any; 
+  htmlToAdd: string | undefined;
 
   constructor(private web3: Web3Service) { }
-
-
+  list: string[] = [];
   async viewVotations(){
-    this.Votazione="";
-    let oldVotazione="1";
-    let tmpVotazione="";
-    let i=0;
-    while( tmpVotazione!=oldVotazione){
-      this.Votazione+=" Votazione "+(i-1)+": " + tmpVotazione;
-      oldVotazione=tmpVotazione;
-      tmpVotazione+= await this.web3.viewVotation(i);
+  let list = document.getElementById("list");
+  if(list!=null) list.innerHTML='';
 
-      i++;
+  for(let i=0;i<10;i++){
+      let [title,option,voto]= await this.web3.viewVotation(i);
+    if(title=="") title="-Titolo assente-";
+    const h2=document.createElement("h2");
+    h2.textContent=title;
+    list?.appendChild(h2);
+
+    const table = document.createElement("table");
+    table.setAttribute("border","1px");
+    const thead = document.createElement("thead");
+    for(let i=0;i<option.length;i++){
+      let td=document.createElement("td");
+      td.textContent=option[i];
+      thead?.appendChild(td);
     }
-    
-    /*
-    this.Votazione="";
-    let num=await this.web3.getNumVotazioni();
+    const tbody = document.createElement("tbody");
+    for(let i=0;i<voto.length;i++){
+      let td=document.createElement("td");
+      td.textContent=voto[i];
+      tbody?.appendChild(td);
+    }
 
-    this.Votazione="Num";
-    /*if(num==0) this.Votazione="Nessuna votazione presente";
-    else 
-    for(let i=0;i<num;i++){
-      this.Votazione+=" Votazione "+(i)+await this.web3.viewVotation(i);
-    }*/
+    table?.appendChild(thead);
+    table?.appendChild(tbody);
+    list?.appendChild(table);
+    
+  }
+  }
+/*<tr>
+    <th>Person 1</th>
+    <th>Person 2</th>
+    <th>Person 3</th>
+  </tr>*/
+  createRange(number: string){
+    var items: number[] = [];
+    for(var i = 1; i <= parseInt(number); i++){
+       items.push(i);
+    }
+    return items;
   }
 }

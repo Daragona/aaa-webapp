@@ -57,7 +57,7 @@ export class Web3Service {
     }
   }
 
-  async newVotation(){
+  async newVotation(title : string, numOptions: number, opzioni : string[]){
     if (this.walletConnected) {
       let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
       console.log("nuova");
@@ -67,9 +67,9 @@ export class Web3Service {
         20,
         "0x3034cD9FDE929139399743430dF5fe340E77308d",
         "0xE549DD626C1D1D50d9De5A9c2A452544aB978E4b",
-        "Campione di Napoli?",
-        2,
-        ["Maradona","Messi","","","","","","","",""])
+        title,
+        numOptions,
+        opzioni)
       .send({from: this.address[0]})
       .on('transactionHash', function (hash: any) {
         console.log(hash);

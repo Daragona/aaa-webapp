@@ -1,5 +1,4 @@
 import { Component,OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { Web3Service } from '../web3.service';
 
 @Component({
@@ -9,24 +8,21 @@ import { Web3Service } from '../web3.service';
 })
 export class CreatevoteComponent {
   constructor(private web3: Web3Service) { }
+  passengersData: string[] = ["opz1","opz2","","","","","","","",""];
 
-  box1name = 'Angular';
-  box2name = 'Angular2';
-
-  Character(value: string) {
-  this.box1name="print this for box1 :" + value;
-  console.log(this.box1name);
-}
-
-  onEnter(value: string) {
-  this.box2name="print this for box2: " + value;
-  console.log(this.onEnter);
-}
-
-async CreateVotation() {
-  this.web3.newVotation();
+async CreateVotation(title: string, num : string) {
+  console.log(this.passengersData)
+  await this.web3.newVotation(title,parseInt(num),this.passengersData);
 }
  
-async getInfoVotation(){
+
+
+createRange(number: string){
+  var items: number[] = [];
+  for(var i = 1; i <= parseInt(number); i++){
+     items.push(i);
+  }
+  return items;
 }
+
 }

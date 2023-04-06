@@ -1,23 +1,17 @@
 <p>createvote works!</p>
-<div class="container">
+<div>
 
-    <h1>User Registration</h1>  
-    <input #box (keyup.enter)="Character(box.value)"/>
 
-    <p>{{box1name}}</p>
     
-    
-    
-    
-    <input #box2 (keyup.enter)="onEnter(box2.value)"/>
-    
-    <p>{{box2name}}</p>
+        Titolo:
+        <input #title type="text"/><br><br>
+        Numero opzioni: 
+        <input #num type="text" (keyup)="createRange(num.value)" value="2"/>
+      
+    <li *ngFor="let passenger of createRange(num.value); let i=index"><input type="text" [(ngModel)]="passengersData[i]" placeholder="option"></li>
 
 
-    <button (click)="CreateVotation()">Crea</button>
-    <button (click)="getInfoVotation()">Info</button>
-
-
+    <br><button (click)="CreateVotation(title.value,num.value)">Crea!</button>
 
 </div>
 
