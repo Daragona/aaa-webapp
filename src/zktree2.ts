@@ -2,9 +2,11 @@ import * as crypto from 'crypto'
 import * as circomlibjs from 'circomlibjs';
 
 import { BigNumberish, BigNumber, Contract } from "ethers";
+//import { generateCommitment, calculateMerkleRootAndZKProof, PromiseOrValue } from 'zk-merkle-tree';
 
 
 export async function generateCommitment() {
+
     //const mimc = await circomlibjs.buildMimcSponge();
    /* const nullifier = BigNumber.from(crypto.randomBytes(31)).toString()
     const secret = BigNumber.from(crypto.randomBytes(31)).toString()

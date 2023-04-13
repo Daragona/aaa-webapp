@@ -101,7 +101,6 @@ export class Web3Service {
     if (this.walletConnected) {
       let abi= require('contracts/ZKMapVote.sol/ZkMapVote.json')
       const contract = new this.web3WalletProvider.eth.Contract(abi.abi, this.contractAddress);
-      console.log("1");
       await contract.methods.registerOneValidator(vote, value)
         .send({from: this.address[0]})
         .on('transactionHash', function (hash: any) {
@@ -109,11 +108,10 @@ export class Web3Service {
         }).on('receipt', function (receipt: any) {
           console.log(receipt+"Done!");
         }).on('error', console.error)
-        console.log("2");
 
     }else
       console.log("wallet not connected");    
-
+    
   }
 
   async addWhitelist(vote:number, value : string){

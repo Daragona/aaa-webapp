@@ -13,18 +13,26 @@ export class RegisterComponent {
 
 
   addValidator(vote: string, value: string) {
-    let num :number;
-    num=parseInt(vote);
-    this.web3.addValidator(num, value);
-
-    this.result= "Fatto DajeRoma";
+    if(this.check(value)){
+      let num :number;
+      num=parseInt(vote);
+      this.web3.addValidator(num, value);
+    }else
+    this.result="Indirizzo non valido";
   }
 
   addWhitelist(vote: string, value: string) {
-    let num :number;
-    num=parseInt(vote);
-    this.web3.addWhitelist(num, value);
+    if(this.check(value)){
+      let num :number;
+      num=parseInt(vote);
+      this.web3.addWhitelist(num, value);
+    }else
+    this.result="Indirizzo non valido";
 
-    this.result= "Fatto DajeRoma";
+  }
+
+  check(address: string){
+    const regex = /^0x[a-fA-F0-9]{40}$/;
+    return regex.test(address);
   }
 }

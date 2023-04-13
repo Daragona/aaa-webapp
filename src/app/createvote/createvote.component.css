@@ -1,1 +1,26 @@
+.error{
+    color: red;
+}
+.title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+p{
+    font-weight: bold;
 
+}
+
+    
+    input {
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    }
+    
+    li {
+    margin: 10px 0;
+    }
+    
+        
+    

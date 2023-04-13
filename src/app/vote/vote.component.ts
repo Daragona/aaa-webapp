@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Web3Service } from '../web3.service';
-import { generateCommitment } from '../../zktree2';
+//import { generateCommitment } from '../../zktree2';
+import { generateCommitment, calculateMerkleRootAndZKProof, PromiseOrValue } from 'zk-merkle-tree';
+
 @Component({
   selector: 'app-vote',
   templateUrl: './vote.component.html',
@@ -16,8 +18,8 @@ export class VoteComponent {
     let vote=0;
     let nulli,secret,commit,hash;
 
-    nulli= await generateCommitment();
-    console.log(nulli);
+    //nulli= await generateCommitment();
+    //console.log(nulli);
     //this.web3.registerCommitment(vote,hash,commit);
   }
 }
