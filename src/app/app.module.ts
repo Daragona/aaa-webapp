@@ -11,6 +11,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { RegisterComponent } from './register/register.component';
 
 const appRoutes: Routes = [
+  { path: '', component: ViewvoteComponent},
   { path: 'vote', component: VoteComponent },
   { path: 'create-vote', component: CreatevoteComponent },
   { path: 'view-vote', component: ViewvoteComponent },

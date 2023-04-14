@@ -7,7 +7,7 @@ import { provider } from 'web3-core';
   providedIn: 'root',
 })
 export class Web3Service {
-  private contractAddress = "0x881037F2cC0A8eADCc3f3C991573b988F052fd91";
+  private contractAddress = "0xeb9FFDD0f74f2554e1dfc89d3d3e34B157a17a26";
     private provider!: provider;
   private address!: string[];
   private web3WalletProvider: Web3;

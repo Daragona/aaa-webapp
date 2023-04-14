@@ -1,14 +1,15 @@
 <p class="title">Registra un indirizzo in whitelist o come validator:</p>
 
-<div class="bordi">    
+<div class="bordi">  
+    
     <p>Votazione</p> 
-    <input type="number" #vote/><br><br>
+    <select id="mySelect" #vote></select>
+
     <p>Indirizzo</p> 
-    <input type="text" #box/> <br>
+    <input type="text" placeholder="0x..." #box/> <br>
     <br><br><button class="buttonG" (click)="addValidator(vote.value, box.value)">Aggiungi come validator!</button>
     <br><br><button class="buttonG" (click)="addWhitelist(vote.value, box.value)">Aggiungi alla whitelist!</button>
 
 
     <p class="result">{{result}}</p>
-
 </div>

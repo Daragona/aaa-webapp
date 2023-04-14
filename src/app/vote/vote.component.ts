@@ -23,3 +23,4 @@ export class VoteComponent {
     //this.web3.registerCommitment(vote,hash,commit);
   }
 }
+

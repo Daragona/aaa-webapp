@@ -35,12 +35,13 @@ export class ViewvoteComponent implements OnInit{
     
 
       let [title,option,voto]= await this.web3.viewVotation(i);
-      if(title=null) return;
+      if(title==null) return;
       if(title=="") title="-Titolo assente-";
       
       list?.appendChild(div);
 
       const h2=document.createElement("h2");
+
       h2.textContent=title;
       h2.style.textAlign="center";
       h2.style.fontSize="1.1em";
